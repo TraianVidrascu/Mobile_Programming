@@ -5,22 +5,20 @@ export default class TaskDetail extends Component{
     constructor(props){
         super(props);
         this.state = {
-            id: props.id,
-            name : props.name,
-            description : props.description,
-            location: props.location,
-            deadline : props.deadline
+            name : props.text,
+            description: props.text1,
+            location: props.text2,
+            deadline: props.text3,
+            id: props.text0
         };
-        alert(props.id+this.state.name+this.state.deadline)
-
     }
 
     render(){
 
         return(
         <View style={styles.layout}>
-            <Text>Name:</Text>
             <View style={styles.container}>
+                <Text>Name:</Text>
                 <TextInput style={styles.textInput}
                     value = {this.state.name}
                            onChangeText = {(text) => this.setState({name:text})}

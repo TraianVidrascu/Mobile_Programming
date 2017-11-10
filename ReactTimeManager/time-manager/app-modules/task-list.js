@@ -23,19 +23,24 @@ export default class TaskList extends Component {
         }
     }
 
-
+    goToDetails = (task) => {
+        Actions.detail({
+            id: task.id,
+            name : task.name,
+            description : task.description,
+            location: task.location,
+            deadline : task.deadline
+        });
+    }
     _renderTask(task){
+       var obj = {name: task.name}
         return(
             <TouchableHighlight style={styles.cell}
-                                onPress={function (task) {
-                                    Actions.detail({
-                                        id: task.id,
-                                        name : task.name,
-                                        description : task.description,
-                                        location: task.location,
-                                        deadline : task.deadline
-                                    });
-                                }}>
+                                onPress={function () {
+                                    Actions.detail({text: task.name, text1: task.description, text2:task.location,
+                                    text3: task.deadline, text0: task.id.toString()});
+                                }
+                                }>
                 <Text>{task.name}</Text>
             </TouchableHighlight>
         )
@@ -46,7 +51,6 @@ export default class TaskList extends Component {
                 <ListView style={styles.layout}
                 dataSource={this.state.dataSource}
                 renderRow={this._renderTask}
-
             />
             </View>
 
