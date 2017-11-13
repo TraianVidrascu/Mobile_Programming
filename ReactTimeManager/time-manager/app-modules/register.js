@@ -1,6 +1,5 @@
 import React,{ Component} from 'react';
-import TaskDetail from "./task-detail";
-import TaskList from "./task-list";
+
 import {Alert, AppRegistry, Button, StyleSheet, View,TextInput,Text, Linking} from  'react-native'
 import { Actions } from 'react-native-router-flux';
 

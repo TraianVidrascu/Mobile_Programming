@@ -1,36 +1,38 @@
 import React,{ Component} from 'react';
 import {Alert, AppRegistry, Button, StyleSheet, View,ListView,Text,TouchableHighlight, Navigator} from  'react-native'
 import { Actions } from 'react-native-router-flux';
+import Tasks from '../global.js'
 
 
-const tasks = [
-    {id:1, name:'task1', description:'description1',location:'cluj',deadline:'10-11-17'},
-    {id:2, name:'task2', description:'description2',location:'cluj',deadline:'10-11-17'},
-    {id:3, name:'task3', description:'description3',location:'cluj',deadline:'10-11-17'},
-    {id:4, name:'task4', description:'description4',location:'cluj',deadline:'10-11-17'},
-]
+
 
 export default class TaskList extends Component {
     constructor(props) {
+
         super(props);
         let ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2,
         });
         this.state = {
 
-            dataSource: ds.cloneWithRows(tasks),
-            db: tasks
+
+            dataSource: ds.cloneWithRows(Tasks.getTasks()),
+            db: Tasks.getTasks()
         }
+
+
+
     }
 
-    goToDetails = (task) => {
-        Actions.detail({
-            id: task.id,
-            name : task.name,
-            description : task.description,
-            location: task.location,
-            deadline : task.deadline
-        });
+    _goToList(){
+        Actions.list()
+    }
+
+    static update(){
+        this.setState({
+            dataSource: ds.cloneWithRows(Tasks.getTasks()),
+            db: Tasks.getTasks()
+        })
     }
     _renderTask(task){
        var obj = {name: task.name}
@@ -38,7 +40,7 @@ export default class TaskList extends Component {
             <TouchableHighlight style={styles.cell}
                                 onPress={function () {
                                     Actions.detail({text: task.name, text1: task.description, text2:task.location,
-                                    text3: task.deadline, text0: task.id.toString()});
+                                    text3: task.deadline, text0: task.id.toString(), action: this.update });
                                 }
                                 }>
                 <Text>{task.name}</Text>

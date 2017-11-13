@@ -1,27 +1,41 @@
 import React,{ Component} from 'react';
-import {Alert, AppRegistry, Button, StyleSheet, View,TextInput,Text, Linking} from  'react-native'
+import {Alert, AppRegistry, Button, StyleSheet, View,TextInput,Text, Linking} from  'react-native';
+import Tasks from '../global';
+import { Actions } from 'react-native-router-flux';
+import TaskList from "./task-list";
 
 export default class TaskDetail extends Component{
     constructor(props){
         super(props);
         this.state = {
-            name : props.text,
-            description: props.text1,
-            location: props.text2,
-            deadline: props.text3,
-            id: props.text0
+            id: props.text0,
+            name : Tasks.getTasks()[props.text0].name,
+            description: Tasks.getTasks()[props.text0].description,
+            location: Tasks.getTasks()[props.text0].location,
+            deadline: Tasks.getTasks()[props.text0].deadline,
+            action: props.action
+
         };
+        this._goToList = this._goToList.bind(this)
+    }
+    _update(task){
+        Tasks.setTask(task)
+        Actions.list();
+    }
+    _goToList(){
+        Actions.list()
     }
 
-    render(){
 
+    render(){
         return(
         <View style={styles.layout}>
             <View style={styles.container}>
                 <Text>Name:</Text>
                 <TextInput style={styles.textInput}
                     value = {this.state.name}
-                           onChangeText = {(text) => this.setState({name:text})}
+                           onChangeText = {(text) => {this.setState({name:text});
+                                            }}
                 />
             </View>
             <View style={styles.container}>
@@ -47,7 +61,18 @@ export default class TaskDetail extends Component{
                            onChangeText = {(text) => this.setState({deadline:text})}
                 />
             </View>
-
+            <View style={styles.button}>
+                <Button
+                    title ='Update'
+                    onPress={()=>this._update({
+                            name : this.state.name,
+                            description: this.state.description,
+                            location: this.state.location,
+                            deadline: this.state.deadline,
+                            id: this.state.id
+                        })
+                      }/>
+            </View>
         </View>
         )
 
