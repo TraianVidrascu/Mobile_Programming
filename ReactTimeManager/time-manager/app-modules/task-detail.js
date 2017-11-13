@@ -19,8 +19,9 @@ export default class TaskDetail extends Component{
         this._goToList = this._goToList.bind(this)
     }
     _update(task){
-        Tasks.setTask(task)
-        Actions.list();
+        Tasks.setTask(task,task.id)
+        Actions.list()
+
     }
     _goToList(){
         Actions.list()

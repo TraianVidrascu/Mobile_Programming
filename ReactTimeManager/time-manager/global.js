@@ -9,10 +9,9 @@ class Tasks {
         {id:3, name:'task4', description:'description4',location:'cluj',deadline:'10-11-17'}
     ];
 
-    static setTask(task){
-        //toDo parse by id
-        this.tasks[task.id] = task;
-        alert(this.tasks[task.id].name)
+    static setTask(task,key){
+        this.tasks[key] = task;
+        alert(this.tasks[key].name)
     }
 
     static getTasks(){
