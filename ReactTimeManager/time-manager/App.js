@@ -5,6 +5,7 @@ import TaskDetail from "./app-modules/task-detail";
 
 
 import { Router, Scene } from 'react-native-router-flux';
+import TaskAdd from "./app-modules/task-add";
 
 
 const App = (props) => {
@@ -28,7 +29,14 @@ const App = (props) => {
                     title="Task Detail"
                     handleClick = {props.handleClick}
                 />
+                <Scene
+                    key="add"
+                    component={TaskAdd}
+                    title="Task Add"
+                    handleClick = {props.handleClick}
+                />
             </Scene>
+
         </Router>
     );
 }

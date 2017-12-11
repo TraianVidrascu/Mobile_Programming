@@ -8,27 +8,55 @@ export default class TaskDetail extends Component{
     constructor(props){
         super(props);
         this.state = {
-            id: props.text0,
-            name : Tasks.getTasks()[props.text0].name,
-            description: Tasks.getTasks()[props.text0].description,
-            location: Tasks.getTasks()[props.text0].location,
-            deadline: Tasks.getTasks()[props.text0].deadline,
+            id: props.task_name,
+            task: Tasks.getTask(props.task_name),
+            isLoading: true,
+            name : undefined,
+            description:  undefined,
+            location: undefined,
+            deadline: undefined,
             action: props.action
 
         };
         this._goToList = this._goToList.bind(this)
+        this._delete = this._delete.bind(this)
     }
-    _update(task){
-        Tasks.setTask(task,task.id)
-        Actions.list()
 
+    componentWillMount() {
+        this.state.task.then(result=>{
+            this.setState({
+                name : result.name,
+                description:  result.description,
+                location: result.location,
+                deadline: result.deadline,
+                isLoading: false,
+            })
+        })
+    }
+
+    _update(task){
+        Tasks.setTask(task).then(()=>{
+            Alert.alert("task updated")
+            Actions.list()
+        })
+    }
+
+    _delete(task){
+        Tasks.deleteTask(task).then(()=>{
+            Alert.alert("task removed")
+            Actions.list()
+        })
     }
     _goToList(){
         Actions.list()
     }
 
 
+
     render(){
+        if(this.state.isLoading){
+            return <View><Text>Loading...</Text></View>
+        }else
         return(
         <View style={styles.layout}>
             <View style={styles.container}>
@@ -74,6 +102,12 @@ export default class TaskDetail extends Component{
                         })
                       }/>
             </View>
+            <Button
+                title='DELETE'
+                onPress={()=>this._delete({
+                    id: this.state.id
+                })}
+            />
         </View>
         )
 
