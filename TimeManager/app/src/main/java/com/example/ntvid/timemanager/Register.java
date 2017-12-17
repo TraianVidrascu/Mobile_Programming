@@ -46,6 +46,18 @@ public class Register extends AppCompatActivity {
 
             }
         });
+        Button goToAdd = (Button)findViewById(R.id.goToAdd);
+        goToAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent mail = new Intent(Intent.ACTION_SENDTO);
+
+                Intent k = new Intent(Register.this,add_task.class);
+                startActivity(k);
+            }
+        });
+
 
         Button list = (Button)findViewById(R.id.seeList);
         list.setOnClickListener(new View.OnClickListener() {

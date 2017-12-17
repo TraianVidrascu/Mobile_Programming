@@ -24,11 +24,13 @@ public class TaskDetail extends AppCompatActivity {
     private EditText location;
     private EditText date;
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
+    private AppDatabase database;
+    private String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        int i = getIntent().getIntExtra("index",0);
-        hardCoded = DummyList.hardCoded.get(i);
+        id = getIntent().getStringExtra("index");
+        database = AppDatabase.getDatabase(getApplicationContext());
+        hardCoded = database.taskDao().findById(id);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail);
         name = (EditText)findViewById(R.id.nameText);
@@ -45,12 +47,14 @@ public class TaskDetail extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               hardCoded.setName(name.getText().toString());
-               hardCoded.setDescription(description.getText().toString());
-               hardCoded.setLocation(location.getText().toString());
+                Task task = new Task();
+                task.setId(id);
+                task.setName(name.getText().toString());
+                task.setDescription(description.getText().toString());
+                task.setLocation(location.getText().toString());
                String stringDate = date.getText().toString();
-               hardCoded.setDeadline(stringDate);
-
+                task.setDeadline(stringDate);
+                database.taskDao().updateTask(task);
                MessageBox("Saved changes!");
             }
         });
@@ -61,6 +65,17 @@ public class TaskDetail extends AppCompatActivity {
             public void onClick(View view) {
                 Intent k = new Intent(TaskDetail.this,TaskList.class);
                 startActivity(k);
+            }
+        });
+
+        Button delete = (Button)findViewById(R.id.delete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                database.taskDao().delete(database.taskDao().findById(id));
+                Intent k = new Intent(TaskDetail.this,TaskList.class);
+                startActivity(k);
+
             }
         });
 

@@ -14,7 +14,7 @@ import java.util.List;
 public  class  DummyList {
     private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-    public static List<Task> hardCoded = Arrays.asList( new Task(1l,"Hard1","moreHardcode","location",format.format(new Date())
-            ),new Task(2l,"Hard2","moreHardcode","location",format.format(new Date())),
-            new Task(3l,"Hard3","moreHardcode","location",format.format(new Date())));;
+    public static List<Task> hardCoded = Arrays.asList( new Task("Hard1","Hard1","moreHardcode","location",format.format(new Date())
+            ),new Task("Hard2","Hard2","moreHardcode","location",format.format(new Date())),
+            new Task("Hard3","Hard3","moreHardcode","location",format.format(new Date())));;
 }

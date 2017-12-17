@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import {Alert, AppRegistry, Button, StyleSheet, View, ListView, Text, TouchableHighlight, Navigator} from 'react-native'
+import {
+    Alert, AppRegistry, Button, StyleSheet, View, ListView, Text, TouchableHighlight, Navigator,
+    ActivityIndicator
+} from 'react-native'
 import {Actions} from 'react-native-router-flux';
 import Tasks from '../global.js'
 
@@ -69,7 +72,7 @@ export default class TaskList extends Component {
 
     render() {
         if (this.state.isLoading) {
-            return <View><Text>Loading...</Text></View>
+            return <View><ActivityIndicator style="large"/></View>
         } else
             return (
                 <View style={styles.layout}>

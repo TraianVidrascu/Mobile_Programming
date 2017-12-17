@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Actions} from 'react-native-router-flux';
 
-import {Alert, AsyncStorage, Button, View, TextInput, Text} from 'react-native';
+import {ActivityIndicator,Alert, AsyncStorage, Button, View, TextInput, Text} from 'react-native';
 import Tasks from "../global";
 
 export default class TaskAdd extends Component {
@@ -40,12 +40,18 @@ export default class TaskAdd extends Component {
                         AsyncStorage.setItem(task.id, JSON.stringify(task)).then(() => {
                             console.log('success');
                             Alert.alert("task saved")
+                            this.setStaet({
+                                isLoading:true
+                            })
                             Actions.list();
                         })
                     } else {
                         AsyncStorage.setItem(task.id, JSON.stringify(task)).then(() => {
                             console.log('good');
                             Alert.alert("task saved")
+                            this.setStaet({
+                                isLoading:true
+                            })
                             Actions.list();
                         })
                     }
@@ -59,7 +65,7 @@ export default class TaskAdd extends Component {
 
     render() {
         if (this.state.isLoading) {
-            return <View><Text>Loading...</Text></View>
+            return <View><ActivityIndicator style="large"/></View>
         } else
             return (
                 <View>
@@ -107,6 +113,7 @@ export default class TaskAdd extends Component {
                                         description: this.state.description,
                                         location: this.state.location,
                                         deadline: this.state.deadline,
+                                        isLoading:true
                                     }
                                 )
                             }}/>

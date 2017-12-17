@@ -90,4 +90,12 @@
         android:text="List"
         app:layout_constraintStart_toStartOf="@+id/register"
         app:layout_constraintTop_toBottomOf="@+id/register" />
+
+    <Button
+        android:id="@+id/goToAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Task"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/seeList" />
 </android.support.constraint.ConstraintLayout>

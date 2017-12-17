@@ -1,5 +1,9 @@
 package com.example.ntvid.timemanager.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,8 +11,11 @@ import java.util.Date;
  * Created by ntvid on 07/11/2017.
  */
 
+@Entity
 public class Task implements Serializable{
-    private Long id;
+    @PrimaryKey
+    @NonNull
+    private String id;
     private String name;
     private String description;
     private String location;
@@ -17,7 +24,7 @@ public class Task implements Serializable{
     public Task() {
     }
 
-    public Task(Long id, String name, String description, String location, String deadline) {
+    public Task(String id, String name, String description, String location, String deadline) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -25,11 +32,11 @@ public class Task implements Serializable{
         this.deadline = deadline;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
