@@ -39,8 +39,8 @@ public class Chart extends AppCompatActivity {
         xAxis.setTextColor(Color.RED);
         xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(false);;*/
-        xAxis.setGranularity(1f);
-        /*xAxis.setAxisMinimum(0f);
+        /*xAxis.setGranularity(1f);
+        xAxis.setAxisMinimum(0f);
         xAxis.setAxisMaximum(12f);*/
 // set a custom value formatter
         xAxis.setValueFormatter((value, axis) -> labels.get((int) value));
