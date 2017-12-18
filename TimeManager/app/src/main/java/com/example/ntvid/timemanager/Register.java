@@ -21,6 +21,12 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
 
+        Button toChart = (Button)findViewById(R.id.toChart);
+        toChart.setOnClickListener((view)->{
+            Intent k = new Intent(Register.this,Chart.class);
+            startActivity(k);
+        });
+
         Button register = (Button)findViewById(R.id.register);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,8 +56,6 @@ public class Register extends AppCompatActivity {
         goToAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent mail = new Intent(Intent.ACTION_SENDTO);
 
                 Intent k = new Intent(Register.this,add_task.class);
                 startActivity(k);
