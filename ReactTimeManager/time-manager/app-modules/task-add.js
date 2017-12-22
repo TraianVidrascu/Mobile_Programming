@@ -19,17 +19,7 @@ export default class TaskAdd extends Component {
         this._addTask = this._addTask.bind(this)
     }
 
-    /*componentWillMount() {
-        AsyncStorage.getAllKeys().map((list,index)=>{
 
-        }).then()e
-        Tasks.generateId().then(id => {
-            this.setState({
-                id: id,
-                isLoading: false,
-            })
-        })
-    }*/
 
     _addTask(task) {
         try {
@@ -55,6 +45,7 @@ export default class TaskAdd extends Component {
                             Actions.list();
                         })
                     }
+                    Actions.list();
                 })
             }
         }
@@ -62,8 +53,17 @@ export default class TaskAdd extends Component {
             console.log(e.message);
         }
     }
+    /*chart: {
+        width: 200,
+        height: 200,
+    };*/
+
+
 
     render() {
+        /*const data = [
+            [0,1],
+        ];*/
         if (this.state.isLoading) {
             return <View><ActivityIndicator style="large"/></View>
         } else
@@ -117,6 +117,14 @@ export default class TaskAdd extends Component {
                                     }
                                 )
                             }}/>
+                    </View>
+                    <View>
+                        {/*<Chart
+                            style={this.chart}
+                            data={data}
+                            verticalGridStep={5}
+                            type="bar"
+                        />*/}
                     </View>
                 </View>
             )

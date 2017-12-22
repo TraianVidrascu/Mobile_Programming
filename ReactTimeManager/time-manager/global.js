@@ -19,7 +19,9 @@ class Tasks {
         results.forEach(result => tasks.push(JSON.parse(result[1])));
         return tasks
     }
-
+    static clear(){
+        AsyncStorage.clear()
+    }
     static async getTasks() {
         try {
             return await AsyncStorage.getAllKeys().then(keys => {

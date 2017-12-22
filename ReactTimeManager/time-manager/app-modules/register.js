@@ -11,13 +11,14 @@ export  default class RegisterButton extends Component{
             username: 'User name',
             password: '',
         };
-        this._onPressRegister = this._onPressRegister.bind(this)
-        this._goToList = this._goToList.bind(this)
+        this._onPressRegister = this._onPressRegister.bind(this);
+        this._goToList = this._goToList.bind(this);
     }
 
     _goToList(){
         Actions.list()
     }
+
 
     _onPressRegister(){
         Linking.openURL('mailto:ntvidrascu@gmail.com?subject=register&body= hi '+this.state.fullName+'\n'

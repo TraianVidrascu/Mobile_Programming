@@ -5,7 +5,7 @@ import {
 } from 'react-native'
 import {Actions} from 'react-native-router-flux';
 import Tasks from '../global.js'
-
+import {VictoryBar} from 'victory-native';
 
 export default class TaskList extends Component {
     constructor(props) {
@@ -18,9 +18,13 @@ export default class TaskList extends Component {
             db: undefined
         }
         this._deleteAction = this._deleteAction.bind(this);
+/*
+        Tasks.clear();
+*/
     }
 
     componentWillMount() {
+
         let ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2,
         });
@@ -71,6 +75,7 @@ export default class TaskList extends Component {
     }
 
     render() {
+        const data = [[0, 1],[1,3]];
         if (this.state.isLoading) {
             return <View><ActivityIndicator style="large"/></View>
         } else
@@ -81,11 +86,15 @@ export default class TaskList extends Component {
                               dataSource={this.state.dataSource}
                               renderRow={this._renderTask}
                     />
+
                     <View>
                         <Button
                             title='Add Task'
                             onPress={() => Actions.add()}
                         />
+                    </View>
+                    <View>
+                        <VictoryBar/>
                     </View>
                 </View>
 

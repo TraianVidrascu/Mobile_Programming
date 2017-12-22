@@ -3,7 +3,6 @@ import RegisterButton from "./app-modules/register";
 import TaskList from "./app-modules/task-list";
 import TaskDetail from "./app-modules/task-detail";
 
-
 import { Router, Scene } from 'react-native-router-flux';
 import TaskAdd from "./app-modules/task-add";
 
