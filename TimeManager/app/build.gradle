@@ -1,11 +1,9 @@
 apply plugin: 'com.android.application'
 
 android {
-    defaultConfig {
-
-    }
     compileSdkVersion 26
     defaultConfig {
+
         multiDexEnabled true
         applicationId "com.example.ntvid.timemanager"
         minSdkVersion 15
@@ -24,8 +22,8 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
-}
 
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.github.PhilJay:MPAndroidChart:v3.0.3"
@@ -39,4 +37,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.support:design:26.1.0'
+
 }
+apply plugin: 'com.google.gms.google-services'
+

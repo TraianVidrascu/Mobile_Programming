@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.example.ntvid.taskmanager.api.FirebaseService;
 import com.example.ntvid.taskmanager.database.AppDatabase;
 import com.example.ntvid.taskmanager.model.Task;
+import com.example.ntvid.taskmanager.model.Watch;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -31,10 +33,13 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     //private AppDatabase database;
     private FirebaseService firebaseService;
+    private FirebaseAuth auth;
     private String id;
     private int year;
     private int month;
     private int day;
+    private Watch watcher;
+
 
 
     @Override
@@ -42,8 +47,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
         super.onCreate(savedInstanceState);
         id = getIntent().getStringExtra("index");
-        //database = AppDatabase.getDatabase(getApplicationContext());
-        //hardCoded = database.taskDao().findById(id);
+        auth = FirebaseAuth.getInstance();
         firebaseService = FirebaseService.getInstance();
         hardCoded = firebaseService.findById(id);
         setContentView(R.layout.activity_detail);
@@ -59,6 +63,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         if (!formatedDate.matches("[a-zA-z]")) ;
         date.setText(formatedDate);
         changeDate.setOnClickListener(this);
+        watcher = firebaseService.findByTaskAndUSer(auth.getCurrentUser().getUid(),id);
 
         Button button = (Button) findViewById(R.id.detail_save);
         button.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +105,36 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                 finish();
             }
         });
+
+        Button watch = (Button) findViewById(R.id.watch_task_detail);
+        Button unfollow = (Button) findViewById(R.id.unfollow_task_detail);
+
+        watch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                watcher = firebaseService.addWatch(new Watch(auth.getCurrentUser().getUid(),id));
+                unfollow.setVisibility(View.VISIBLE);
+                watch.setVisibility(View.GONE);
+
+            }
+        });
+
+        unfollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseService.deleteWatch(watcher.getId());
+                unfollow.setVisibility(View.GONE);
+                watch.setVisibility(View.VISIBLE);
+                watcher = null;
+
+            }
+        });
+
+        if(watcher!=null){
+            watch.setVisibility(View.GONE);
+        }else {
+            unfollow.setVisibility(View.GONE);
+        }
 
     }
 

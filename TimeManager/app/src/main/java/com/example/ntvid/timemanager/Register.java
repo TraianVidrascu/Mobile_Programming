@@ -11,21 +11,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
+
+
 /**
  * Created by ntvid on 08/11/2017.
  */
 
 public class Register extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
 
-        Button toChart = (Button)findViewById(R.id.toChart);
-        toChart.setOnClickListener((view)->{
-            Intent k = new Intent(Register.this,Chart.class);
-            startActivity(k);
-        });
 
         Button register = (Button)findViewById(R.id.register);
         register.setOnClickListener(new View.OnClickListener() {
@@ -46,31 +45,14 @@ public class Register extends AppCompatActivity {
                 startActivity(mail);
                 finish();
                 Log.i("finished sending","");
-
-
-
-
-            }
-        });
-        Button goToAdd = (Button)findViewById(R.id.goToAdd);
-        goToAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent k = new Intent(Register.this,add_task.class);
+                Intent k = new Intent(Register.this,MainActivity.class);
                 startActivity(k);
             }
         });
 
 
-        Button list = (Button)findViewById(R.id.seeList);
-        list.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent k = new Intent(Register.this,TaskList.class);
-                startActivity(k);
-            }
-        });
+
+
     }
 
     public void MessageBox(String message){

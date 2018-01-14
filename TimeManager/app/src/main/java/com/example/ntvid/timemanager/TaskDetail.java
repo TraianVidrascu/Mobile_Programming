@@ -1,5 +1,6 @@
 package com.example.ntvid.timemanager;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -80,8 +81,10 @@ public class TaskDetail extends AppCompatActivity implements View.OnClickListene
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent k = new Intent(TaskDetail.this, TaskList.class);
-                startActivity(k);
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",database.taskDao().findById(id));
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
             }
         });
 
@@ -90,9 +93,10 @@ public class TaskDetail extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 database.taskDao().delete(database.taskDao().findById(id));
-                Intent k = new Intent(TaskDetail.this, TaskList.class);
-                startActivity(k);
-
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",new Task());
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
             }
         });
 

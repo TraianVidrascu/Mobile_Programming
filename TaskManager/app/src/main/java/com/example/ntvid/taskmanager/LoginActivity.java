@@ -1,7 +1,13 @@
 package com.example.ntvid.taskmanager;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.ntvid.taskmanager.api.FirebaseService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -19,18 +26,28 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
+    private FirebaseService service;
     private EditText email;
     private EditText pass;
+
+    private NotificationManager createNotificationManager(){
+        NotificationManager mNotifyMgr =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        return mNotifyMgr;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         auth = FirebaseAuth.getInstance();
         email = (EditText) findViewById(R.id.email_text);
         pass = (EditText) findViewById(R.id.password_text);
 
         if (auth.getCurrentUser() != null) {
+            service = FirebaseService.initNotifications(createNotificationManager(),this);
+
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
@@ -60,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
+                                    service = FirebaseService.initNotifications(createNotificationManager(),LoginActivity.this);
                                     Log.d("tag", "signInWithEmail:success");
                                     FirebaseUser user = auth.getCurrentUser();
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);

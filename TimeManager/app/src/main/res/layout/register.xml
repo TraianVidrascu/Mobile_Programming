@@ -12,7 +12,7 @@
         android:layout_marginTop="9dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Full Name"
+        android:text="Email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -81,31 +81,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
 
-    <Button
-        android:id="@+id/seeList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="17dp"
-        android:text="List"
-        app:layout_constraintStart_toStartOf="@+id/register"
-        app:layout_constraintTop_toBottomOf="@+id/register" />
-
-    <Button
-        android:id="@+id/goToAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Task"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/seeList" />
-
-    <Button
-        android:id="@+id/toChart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:text="Chart"
-        app:layout_constraintStart_toEndOf="@+id/register"
-        app:layout_constraintTop_toBottomOf="@+id/register" />
 </android.support.constraint.ConstraintLayout>

@@ -22,6 +22,7 @@
         <activity android:name=".AddActivity" />
         <activity android:name=".DetailActivity" />
         <activity android:name=".ChartActivity"></activity>
+
     </application>
 
 </manifest>

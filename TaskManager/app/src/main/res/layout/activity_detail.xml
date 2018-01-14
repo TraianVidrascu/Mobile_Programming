@@ -99,4 +99,22 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/detail_save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/detail_save" />
+
+    <Button
+        android:id="@+id/watch_task_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="Watch"
+        app:layout_constraintStart_toStartOf="@+id/detail_save"
+        app:layout_constraintTop_toBottomOf="@+id/detail_save" />
+
+    <Button
+        android:id="@+id/unfollow_task_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="27dp"
+        android:text="Unfollow"
+        app:layout_constraintBaseline_toBaselineOf="@+id/watch_task_detail"
+        app:layout_constraintEnd_toEndOf="parent" />
 </android.support.constraint.ConstraintLayout>
