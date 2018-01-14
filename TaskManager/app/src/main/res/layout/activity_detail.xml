@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ntvid.taskmanager.DetailActivity">
+
+    <EditText
+        android:id="@+id/detail_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="29dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/detail_desc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/detail_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Description"
+        app:layout_constraintBottom_toTopOf="@+id/detail_location"
+        app:layout_constraintStart_toStartOf="@+id/detail_name"
+        app:layout_constraintTop_toBottomOf="@+id/detail_name" />
+
+    <EditText
+        android:id="@+id/detail_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Location"
+        app:layout_constraintBottom_toTopOf="@+id/detail_date"
+        app:layout_constraintStart_toStartOf="@+id/detail_desc"
+        app:layout_constraintTop_toBottomOf="@+id/detail_desc" />
+
+    <TextView
+        android:id="@+id/detail_date"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="77dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginStart="35dp"
+        android:text="Date"
+        app:layout_constraintBottom_toTopOf="@+id/detail_delete"
+        app:layout_constraintEnd_toStartOf="@+id/detail_date_change"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_location" />
+
+    <Button
+        android:id="@+id/detail_date_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="59dp"
+        android:layout_marginTop="17dp"
+        android:text="Change"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/detail_date"
+        app:layout_constraintTop_toBottomOf="@+id/detail_location" />
+
+    <Button
+        android:id="@+id/detail_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="139dp"
+        android:layout_marginEnd="5dp"
+        android:text="Delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/detail_save"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_date" />
+
+    <Button
+        android:id="@+id/detail_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="7dp"
+        android:text="Save"
+        app:layout_constraintBaseline_toBaselineOf="@+id/detail_delete"
+        app:layout_constraintEnd_toStartOf="@+id/detail_back"
+        app:layout_constraintStart_toEndOf="@+id/detail_delete" />
+
+    <Button
+        android:id="@+id/detail_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="back"
+        app:layout_constraintBaseline_toBaselineOf="@+id/detail_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/detail_save" />
+</android.support.constraint.ConstraintLayout>

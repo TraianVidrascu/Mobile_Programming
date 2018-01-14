@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ntvid.taskmanager.MainActivity">
+
+    <Button
+        android:id="@+id/main_tasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="53dp"
+        android:text="Tasks"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/main_add_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Add"
+        app:layout_constraintStart_toStartOf="@+id/main_tasks"
+        app:layout_constraintTop_toBottomOf="@+id/main_tasks" />
+
+    <Button
+        android:id="@+id/main_chart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Chart"
+        app:layout_constraintStart_toStartOf="@+id/main_add_task"
+        app:layout_constraintTop_toBottomOf="@+id/main_add_task" />
+
+    <Button
+        android:id="@+id/main_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Sign_out"
+        app:layout_constraintStart_toStartOf="@+id/main_chart"
+        app:layout_constraintTop_toBottomOf="@+id/main_chart" />
+</android.support.constraint.ConstraintLayout>

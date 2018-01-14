@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ntvid.taskmanager.RegisterActivity">
+
+    <EditText
+        android:id="@+id/email_input_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="58dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/password_input_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Password"
+        app:layout_constraintStart_toStartOf="@+id/email_input_text"
+        app:layout_constraintTop_toBottomOf="@+id/email_input_text" />
+
+    <Button
+        android:id="@+id/do_register_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="29dp"
+        android:text="Register"
+        app:layout_constraintBottom_toTopOf="@+id/go_to_login_button"
+        app:layout_constraintStart_toStartOf="@+id/go_to_login_button" />
+
+    <Button
+        android:id="@+id/go_to_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="27dp"
+        android:text="Go To Login"
+        app:layout_constraintBottom_toTopOf="@+id/mail_button"
+        app:layout_constraintStart_toStartOf="@+id/mail_button" />
+
+    <Button
+        android:id="@+id/mail_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="97dp"
+        android:layout_marginStart="112dp"
+        android:text="Mail"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</android.support.constraint.ConstraintLayout>
