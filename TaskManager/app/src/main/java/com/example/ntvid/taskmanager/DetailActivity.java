@@ -66,21 +66,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         watcher = firebaseService.findByTaskAndUSer(auth.getCurrentUser().getUid(),id);
 
         Button button = (Button) findViewById(R.id.detail_save);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Task task = new Task();
-                task.setId(id);
-                task.setName(name.getText().toString());
-                task.setDescription(description.getText().toString());
-                task.setLocation(location.getText().toString());
-                String stringDate = date.getText().toString();
-                task.setDeadline(stringDate);
-                //database.taskDao().updateTask(task);
-                firebaseService.updateTask(task);
-                MessageBox("Saved changes!");
-            }
-        });
+
 
         Button back = (Button) findViewById(R.id.detail_back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -94,17 +80,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         });
 
         Button delete = (Button) findViewById(R.id.detail_delete);
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //database.taskDao().delete(database.taskDao().findById(id));
-                firebaseService.deleteTask(id);
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("result",new Task());
-                setResult(Activity.RESULT_OK,returnIntent);
-                finish();
-            }
-        });
+
 
         Button watch = (Button) findViewById(R.id.watch_task_detail);
         Button unfollow = (Button) findViewById(R.id.unfollow_task_detail);
@@ -134,6 +110,39 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             watch.setVisibility(View.GONE);
         }else {
             unfollow.setVisibility(View.GONE);
+        }
+
+        if(!firebaseService.isAdmin(auth.getCurrentUser().getEmail())){
+           changeDate.setEnabled(false);
+            button.setEnabled(false);
+            delete.setEnabled(false);
+        }else{
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    firebaseService.deleteTask(id);
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("result",new Task());
+                    setResult(Activity.RESULT_OK,returnIntent);
+                    finish();
+                }
+            });
+
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Task task = new Task();
+                    task.setId(id);
+                    task.setName(name.getText().toString());
+                    task.setDescription(description.getText().toString());
+                    task.setLocation(location.getText().toString());
+                    String stringDate = date.getText().toString();
+                    task.setDeadline(stringDate);
+                    //database.taskDao().updateTask(task);
+                    firebaseService.updateTask(task);
+                    MessageBox("Saved changes!");
+                }
+            });
         }
 
     }

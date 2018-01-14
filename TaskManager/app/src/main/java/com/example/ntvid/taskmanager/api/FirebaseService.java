@@ -37,6 +37,7 @@ public class FirebaseService extends Observable {
     private static List<Observer> observers;
     private List<Watch> wathces;
     private List<Task> tasks;
+    private List<User> admins;
     private List<Notification> userNotifications;
     private static FirebaseService instance = null;
     private boolean isNotUpdated = true;
@@ -49,6 +50,7 @@ public class FirebaseService extends Observable {
     }
 
     private FirebaseService() {
+        admins = new ArrayList<>();
         tasks = new ArrayList<>();
         wathces = new ArrayList<>();
         userNotifications = new ArrayList<>();
@@ -190,6 +192,35 @@ public class FirebaseService extends Observable {
             }
         });
 
+        DatabaseReference adminsData = getDatabase("admins");
+        adminsData.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                User user = dataSnapshot.getValue(User.class);
+                admins.add(user);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         init();
     }
 
@@ -288,7 +319,6 @@ public class FirebaseService extends Observable {
         DatabaseReference db = getDatabase("users");
         User user = new User();
         user.setEmail(email);
-        user.setRole(role);
         db.child(key).setValue(user);
     }
 
@@ -328,5 +358,14 @@ public class FirebaseService extends Observable {
         notificationManager = manager;
         FirebaseService.context = context;
         return FirebaseService.getInstance();
+    }
+
+    public boolean isAdmin(String email){
+        for(User user: admins){
+            if(user.getEmail().equals(email)){
+                return true;
+            }
+        }
+        return false;
     }
 }

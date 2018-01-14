@@ -6,7 +6,6 @@ package com.example.ntvid.taskmanager.model;
 
 public class User {
     private String email;
-    private String role;
 
     public User() {
     }
@@ -19,11 +18,5 @@ public class User {
         this.email = email;
     }
 
-    public String getRole() {
-        return role;
-    }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
 }
