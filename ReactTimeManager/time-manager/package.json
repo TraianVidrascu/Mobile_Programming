@@ -20,9 +20,9 @@
   },
   "dependencies": {
     "expo": "^22.0.2",
-    "moment": "latest",
-    "react": "16.0.0-beta.5",
-    "react-native": "^0.50.0",
+
+    "react": "16.0.0",
+    "react-native": "0.50.0",
     "react-native-datepicker-dialog": "0.0.8",
     "react-native-router-flux": "^4.0.0-beta.23",
     "react-native-svg": "^6.0.1-rc.1",
