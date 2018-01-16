@@ -22,10 +22,10 @@ export  default class Login extends Component {
             .then(() => {
                 Actions.list()
             })
-            .catch(() => {
+            .catch((e) => {
                 Alert.alert(
                     "Login failed!",
-                    ""
+                    e.message
                 )
             });*/
 

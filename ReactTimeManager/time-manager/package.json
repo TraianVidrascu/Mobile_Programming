@@ -30,7 +30,10 @@
     "react-native-facebook-login": "^1.6.0",
     "react-native-firebase": "^3.1.1",
     "react-native-firebase-auth": "^1.0.1",
+    "react-native-push-notification": "^3.0.2",
+    "react-native-push-notifications": "^3.0.10",
     "react-native-router-flux": "^4.0.0-beta.23",
+    "react-native-system-notification": "^0.2.1",
     "react-native-unique-id": "^1.0.4",
     "react-navigation": "^1.0.0-beta.19"
   }

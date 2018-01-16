@@ -13,6 +13,7 @@ export default class TaskList extends Component {
 
         super(props);
         this.state = {
+            isAdmin: false,
             tasksRef: firebase.database().ref('tasks'),
             isLoading: true,
             tasks: Tasks.getTasks(),
@@ -21,10 +22,10 @@ export default class TaskList extends Component {
             }),
             db: undefined
         }
-        console.log("her");
 
         this._deleteAction = this._deleteAction.bind(this);
         this.listenForItems = this.listenForItems.bind(this);
+        this._isAdmin = this._isAdmin.bind(this);
 
     }
 
@@ -49,9 +50,28 @@ export default class TaskList extends Component {
 
         });
     }
+    _isAdmin(){
+        var isAdmin = false
+        let ref = firebase.database().ref('admins');
+        ref.on('value', (snap) => {
+            snap.forEach((child) => {
+                console.log(firebase.auth().currentUser.email)
+                console.log(child.val().email)
+                if (child.val().email === firebase.auth().currentUser.email) {
+                    isAdmin = true;
+                }
+            })
+        })
+        this.setState({
+            isAdmin: isAdmin
+        })
+    }
 
     componentDidMount() {
         this.listenForItems(this.itemsRef);
+        this._isAdmin();
+
+
     }
 
     _goToList() {
@@ -89,8 +109,21 @@ export default class TaskList extends Component {
 
     render() {
         const data = [[0, 1], [1, 3]];
-        if (this.state.isLoading) {
-            return <View><ActivityIndicator style="large"/></View>
+        if (this.state.isAdmin) {
+            return <View style={styles.layout}>
+
+                <ListView style={styles.layout}
+                          dataSource={this.state.dataSource}
+                          renderRow={this._renderTask}
+                />
+
+                <View>
+                    <Button
+                        title='Add Task'
+                        onPress={() => Actions.add()}
+                    />
+                </View>
+            </View>
         } else
             return (
                 <View style={styles.layout}>
@@ -99,14 +132,6 @@ export default class TaskList extends Component {
                               dataSource={this.state.dataSource}
                               renderRow={this._renderTask}
                     />
-
-                    <View>
-                        <Button
-                            title='Add Task'
-                            onPress={() => Actions.add()}
-                        />
-                    </View>
-
                 </View>
 
             )
