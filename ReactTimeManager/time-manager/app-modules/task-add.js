@@ -3,11 +3,13 @@ import {Actions} from 'react-native-router-flux';
 
 import {ActivityIndicator,Alert, AsyncStorage, Button, View, TextInput, Text} from 'react-native';
 import Tasks from "../global";
+import * as firebase from "firebase";
 
 export default class TaskAdd extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            tasksRef: firebase.database().ref('tasks'),
             id: undefined,
             name: undefined,
             description: undefined,
@@ -25,7 +27,16 @@ export default class TaskAdd extends Component {
         try {
             if (this.state.name && this.state.description && this.state.location && this.state.deadline) {
                 console.log(Tasks.generateId())
-                AsyncStorage.getItem(task.id).then((value) => {
+                var objRef  = this.state.tasksRef.push()
+                objRef.set({
+                    id: objRef.key,
+                    name: task.name,
+                    description: task.description,
+                    location: task.location,
+                    deadline: task.deadline,
+                })
+                Actions.list();
+                /*AsyncStorage.getItem(task.id).then((value) => {
                     if (value != null) {
                         AsyncStorage.setItem(task.id, JSON.stringify(task)).then(() => {
                             console.log('success');
@@ -46,7 +57,7 @@ export default class TaskAdd extends Component {
                         })
                     }
                     Actions.list();
-                })
+                })*/
             }
         }
         catch (e) {
@@ -108,7 +119,7 @@ export default class TaskAdd extends Component {
                             onPress={() => {
                                 this._addTask(
                                     {
-                                        id: this.state.name,
+                                        id: this.state.id,
                                         name: this.state.name,
                                         description: this.state.description,
                                         location: this.state.location,

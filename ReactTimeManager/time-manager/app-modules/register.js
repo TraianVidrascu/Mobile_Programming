@@ -2,13 +2,13 @@ import React,{ Component} from 'react';
 
 import {Alert, AppRegistry, Button, StyleSheet, View,TextInput,Text, Linking} from  'react-native'
 import { Actions } from 'react-native-router-flux';
+import * as firebase from "firebase";
 
 export  default class RegisterButton extends Component{
     constructor(props){
         super(props);
         this.state = {
-            fullName: 'Full Name',
-            username: 'User name',
+            email: 'email',
             password: '',
         };
         this._onPressRegister = this._onPressRegister.bind(this);
@@ -16,15 +16,29 @@ export  default class RegisterButton extends Component{
     }
 
     _goToList(){
-        Actions.list()
+        Linking.openURL('mailto:'+this.state.email+'?subject=register&body= hi '+this.state.fullName+'\n'
+            +'username: '+this.state.username+'\n'
+            +'passowrd: '+this.state.password);
+        Alert.alert('verify your mail');
+
     }
 
 
     _onPressRegister(){
-        Linking.openURL('mailto:ntvidrascu@gmail.com?subject=register&body= hi '+this.state.fullName+'\n'
-        +'username: '+this.state.username+'\n'
-        +'passowrd: '+this.state.password);
-        Alert.alert('verify your mail');
+        const { email, password } = this.state;
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(() => {
+                let role = this.state.switchValue === false ? "user" : "admin"
+                Actions.list()
+
+            })
+            .catch(() => {
+                Alert.alert(
+                    "Register failed!",
+                    ""
+                )
+            });
+
     }
 
 
@@ -34,19 +48,11 @@ export  default class RegisterButton extends Component{
             <View style = {styles.layout}>
 
                 <View style = {styles.container}>
-                    <Text>Full Name</Text>
+                    <Text>Email</Text>
                     <TextInput
                         style = {styles.textInput}
-                        onChangeText = {(text) => this.setState({fullName: text})}
-                        value = {this.state.fullName}
-                    />
-                </View>
-                <View style = {styles.container}>
-                    <Text>Username</Text>
-                    <TextInput
-                        style = {styles.textInput}
-                        onChangeText = {(text) => this.setState({username: text})}
-                        value = {this.state.username}
+                        onChangeText = {(text) => this.setState({email: text})}
+                        value = {this.state.email}
                     />
                 </View>
                 <View style = {styles.container}>
@@ -69,7 +75,7 @@ export  default class RegisterButton extends Component{
                     <Button
                         style = {styles.buttons}
                         onPress={this._goToList}
-                        title="ViewList"
+                        title="Mail"
                     />
                 </View>
             </View>

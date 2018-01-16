@@ -5,37 +5,53 @@ import {
 } from 'react-native'
 import {Actions} from 'react-native-router-flux';
 import Tasks from '../global.js'
-import {VictoryBar} from 'victory-native';
+import * as firebase from "firebase";
+
 
 export default class TaskList extends Component {
     constructor(props) {
 
         super(props);
         this.state = {
+            tasksRef: firebase.database().ref('tasks'),
             isLoading: true,
             tasks: Tasks.getTasks(),
-            dataSource: undefined,
+            dataSource: new ListView.DataSource({
+                rowHasChanged: (row1, row2) => row1 !== row2,
+            }),
             db: undefined
         }
+        console.log("her");
+
         this._deleteAction = this._deleteAction.bind(this);
-/*
-        Tasks.clear();
-*/
+        this.listenForItems = this.listenForItems.bind(this);
+
     }
 
-    componentWillMount() {
+    listenForItems(itemsRef) {
+        this.state.tasksRef.on('value', (snap) => {
 
-        let ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2,
-        });
-        this.state.tasks.then(results => {
+            // get children as an array
+            var items = [];
+            snap.forEach((child) => {
+                items.push({
+                    name: child.val().name,
+                    description: child.val().description,
+                    location: child.val().location,
+                    deadline: child.val().deadline,
+                    id: child.key
+                });
+            });
             this.setState({
+                dataSource: this.state.dataSource.cloneWithRows(items),
+                isLoading: false
+            });
 
-                dataSource: ds.cloneWithRows(results),
-                db: results,
-                isLoading: false,
-            })
-        })
+        });
+    }
+
+    componentDidMount() {
+        this.listenForItems(this.itemsRef);
     }
 
     _goToList() {
@@ -48,12 +64,6 @@ export default class TaskList extends Component {
         })
     }
 
-    static update() {
-        this.setState({
-            dataSource: ds.cloneWithRows(Tasks.getTasks()),
-            db: Tasks.getTasks()
-        })
-    }
 
     _renderTask(task) {
         var obj = {name: task.name}
@@ -62,8 +72,11 @@ export default class TaskList extends Component {
                 <TouchableHighlight style={styles.cell}
                                     onPress={function () {
                                         Actions.detail({
-                                            task_name: task.id, text1: task.description, text2: task.location,
-                                            text3: task.deadline, action: this.update
+                                            task_id: task.id,
+                                            task_name: task.name,
+                                            task_description: task.description,
+                                            task_location: task.location,
+                                            task_deadline: task.deadline
                                         });
                                     }
                                     }>
@@ -75,7 +88,7 @@ export default class TaskList extends Component {
     }
 
     render() {
-        const data = [[0, 1],[1,3]];
+        const data = [[0, 1], [1, 3]];
         if (this.state.isLoading) {
             return <View><ActivityIndicator style="large"/></View>
         } else
@@ -93,9 +106,7 @@ export default class TaskList extends Component {
                             onPress={() => Actions.add()}
                         />
                     </View>
-                    <View>
-                        <VictoryBar/>
-                    </View>
+
                 </View>
 
             )

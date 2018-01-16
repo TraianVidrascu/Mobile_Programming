@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-native-scripts": "1.7.0",
     "jest-expo": "^22.0.1",
+    "react-devtools": "^3.0.0",
+    "react-native-scripts": "1.7.0",
     "react-test-renderer": "16.0.0-beta.5"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
@@ -13,21 +14,24 @@
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
+    "react-devtools": "react-devtools",
     "test": "node node_modules/jest/bin/jest.js --watch"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
+    "babel-preset-expo": "^4.0.0",
     "expo": "^22.0.2",
-
-    "react": "16.0.0",
-    "react-native": "0.50.0",
+    "firebase": "^4.7.0",
+    "react": "16.0.0-beta.5",
+    "react-native": "^0.49.5",
     "react-native-datepicker-dialog": "0.0.8",
+    "react-native-facebook-login": "^1.6.0",
+    "react-native-firebase": "^3.1.1",
+    "react-native-firebase-auth": "^1.0.1",
     "react-native-router-flux": "^4.0.0-beta.23",
-    "react-native-svg": "^6.0.1-rc.1",
     "react-native-unique-id": "^1.0.4",
-    "react-navigation": "^1.0.0-beta.19",
-    "victory-native": "^0.16.1"
+    "react-navigation": "^1.0.0-beta.19"
   }
 }

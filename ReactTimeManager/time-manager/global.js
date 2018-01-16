@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {Alert, AsyncStorage} from 'react-native'
 import uniqueId from 'react-native-unique-id'
-
+import FirebaseService from './app-modules/firebase-service'
 class Tasks {
+    static  service = FirebaseService.getInstance();
     static tasks = [
         {id: 0, name: 'task1', description: 'description1', location: 'cluj', deadline: '10-11-17'},
         {id: 1, name: 'task2', description: 'description2', location: 'cluj', deadline: '10-11-17'},
@@ -23,7 +24,14 @@ class Tasks {
         AsyncStorage.clear()
     }
     static async getTasks() {
-        try {
+        let list = this.service.getRef("tasks").once('value').then((data) => {
+            data = data.val()
+            data2 = Object.keys(data).map(function (key) { return {'Person' : data[key], "Key" : key}; });
+            this.setState({list: data2})
+            AsyncStorage.setItem("list", JSON.stringify(data2))
+        })
+        //return this.service.getTasks()
+        /*try {
             return await AsyncStorage.getAllKeys().then(keys => {
                 return AsyncStorage.multiGet(keys).then(results => {
                     return Tasks._parseResults(results);
@@ -33,7 +41,7 @@ class Tasks {
         } catch (e) {
 
         }
-
+*/
     }
 
     static getTask(name) {
